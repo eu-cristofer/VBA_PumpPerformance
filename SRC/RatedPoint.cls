@@ -16,8 +16,6 @@ Private Type typRatedPoint
     dDriverPower As Double
     dHead As Double
     dN As Double
-    dP0 As Double
-    dP3 As Double
     dQ As Double
     dRho As Double
     dTemp As Double
@@ -50,22 +48,6 @@ Public Property Let Q(ByVal Flow As Double)
     ThisRatedPoint.dQ = Flow      ' m^3/h
 End Property
 
-Public Property Get P0() As Double
-' P0 - Read and write
-    P0 = ThisRatedPoint.dP0     ' kgf/cm^2
-End Property
-Public Property Let P0(ByVal InletPressure As Double)
-    ThisRatedPoint.dP0 = InletPressure    ' kgf/cm^2
-End Property
-
-Public Property Get P3() As Double
-' P3 - Read and write
-    P3 = ThisRatedPoint.dP3    ' kgf/cm^2
-End Property
-Public Property Let P3(ByVal OutletPressure As Double)
-    ThisRatedPoint.dP3 = OutletPressure    ' kgf/cm^2
-End Property
-
 Public Property Get DriverPower() As Double
  ' DriverPower- Read and write
     DriverPower = ThisRatedPoint.dDriverPower     ' kW
@@ -87,7 +69,9 @@ Public Property Get Density() As Double
     Density = ThisRatedPoint.dRho / 995
 End Property
 Public Property Let Density(ByVal Value As Double)
-    ThisRatedPoint.dRho = Value * 995
+    If Value <> 0 Then
+        ThisRatedPoint.dRho = Value * 995
+    End If
 End Property
 
 Public Property Get Rho() As Double
@@ -95,7 +79,9 @@ Public Property Get Rho() As Double
     Rho = ThisRatedPoint.dRho
 End Property
 Public Property Let Rho(ByVal Value As Double)
-    ThisRatedPoint.dRho = Value
+    If Value <> 0 Then
+        ThisRatedPoint.dRho = Value
+    End If
 End Property
 
 Public Property Get Efficiency() As Double

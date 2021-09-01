@@ -10,6 +10,8 @@ Sub OptimizationEnd()
     
     Application.Calculation = xlCalculationAutomatic
     
+    ActiveSheet.Calculate
+    
     Debug.Print "OptimizationEnd Module:" & Chr(10) & "      Read!"
     
 End Sub

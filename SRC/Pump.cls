@@ -12,7 +12,7 @@ Option Explicit
 'Member variables:
 '
 Private Type typPump
-    strTAG As String
+    strTag As String
     dD0 As Double
     dD3 As Double
     dA0 As Double
@@ -45,10 +45,10 @@ End Sub
 '
 Public Property Let TAG(ByVal TAG_name As String)
 ' TAG - Read and write
-    ThisPump.strTAG = TAG_name
+    ThisPump.strTag = TAG_name
 End Property
 Public Property Get TAG() As String
-    TAG = ThisPump.strTAG
+    TAG = ThisPump.strTag
 End Property
 
 Public Property Let D0(ByVal InternalDiameter As Double)
@@ -57,10 +57,10 @@ Public Property Let D0(ByVal InternalDiameter As Double)
     ThisPump.dA0 = WorksheetFunction.pi * ThisPump.dD0 ^ 2 / 4       'm^2
 End Property
 Public Property Get D0() As Double
-    D0 = ThisPump.dD0       ' m
+    D0 = Round(ThisPump.dD0, 4)      ' m
 End Property
 Public Property Get A0() As Double
-    A0 = ThisPump.dA0       'm^2
+    A0 = Round(ThisPump.dA0, 4)      'm^2
 End Property
 
 Public Property Let D3(ByVal InternalDiameter As Double)
@@ -69,10 +69,10 @@ Public Property Let D3(ByVal InternalDiameter As Double)
     ThisPump.dA3 = WorksheetFunction.pi * ThisPump.dD3 ^ 2 / 4       'm^2
 End Property
 Public Property Get D3() As Double
-    D3 = ThisPump.dD3       ' m
+    D3 = Round(ThisPump.dD3, 4)      ' m
 End Property
 Public Property Get A3() As Double
-    A3 = ThisPump.dA3       'm^2
+    A3 = Round(ThisPump.dA3, 4)      'm^2
 End Property
 
 Public Property Let Z0(ByVal InletTapElevation As Double)
@@ -112,7 +112,7 @@ Public Property Let SupplierBEP(ByVal Value As Double)
     ThisPump.dSupBEP = Value        ' m^3/h
 End Property
 Public Property Get SupplierBEP() As Double
-    ZM3 = ThisPump.dSupBEP       ' m^3/h
+    SupplierBEP = ThisPump.dSupBEP       ' m^3/h
 End Property
 
 Property Get TestPoints() As Collection
@@ -135,8 +135,6 @@ End Property
 Public Sub AddRatedPoint( _
     ByVal Head As Double, _
     ByVal Flow As Double, _
-    Optional ByVal InletPressure As Double, _
-    Optional ByVal OutletPressure As Double, _
     Optional ByVal Rho As Double, _
     Optional ByVal Density As Double, _
     Optional ByVal DinVisc As Double, _
@@ -154,8 +152,6 @@ Public Sub AddRatedPoint( _
         ' Loading required variables
         .Head = Head
         .Q = Flow
-        .P0 = InletPressure
-        .P3 = OutletPressure
         .NSpeed = NSpeed
         If Rho <> 0 Then .Rho = Rho
         If Density <> 0 Then .Density = Density
@@ -230,12 +226,12 @@ Public Sub AddMultiTestPoint( _
     End If
     
     ' Iterative block
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
-    n = FlowRange.Count
+    N = FlowRange.Count
     
-    For i = 1 To n
+    For i = 1 To N
         If NameRange Is Nothing Then
             Me.AddTestPoint _
                 Flow:=FlowRange(i).Value, _
@@ -264,12 +260,12 @@ Public Sub AddMultiPointDriverPower(ByVal DriverPowerRange As Range)
     End If
     
     ' Iterative block
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
-    n = Me.TestPoints.Count
+    N = Me.TestPoints.Count
     
-    For i = 1 To n
+    For i = 1 To N
         Me.TestPoints(i).DriverPower = DriverPowerRange(i).Value
     Next i
 
@@ -287,12 +283,12 @@ Public Sub AddMultiPointNSpeed(ByVal NRange As Range)
     End If
     
     ' Iterative block
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
-    n = Me.TestPoints.Count
+    N = Me.TestPoints.Count
     
-    For i = 1 To n
+    For i = 1 To N
         Me.TestPoints(i).NSpeed = NRange(i).Value
     Next i
 
@@ -310,12 +306,12 @@ Public Sub AddMultiPointNPSH3(ByVal NPSH3_Range As Range)
     End If
     
     ' Iterative block
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
-    n = Me.TestPoints.Count
+    N = Me.TestPoints.Count
     
-    For i = 1 To n
+    For i = 1 To N
         Me.TestPoints(i).NPSH3 = NPSH3_Range(i).Value
     Next i
 
@@ -325,12 +321,12 @@ Public Sub AddMultiPointTemp(ByVal Temp As Double)
 '
 ' Methodo to add a block of Temperature data
 '
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
-    n = Me.TestPoints.Count
+    N = Me.TestPoints.Count
     
-    For i = 1 To n
+    For i = 1 To N
         Me.TestPoints(i).Temp = Temp
     Next i
 
@@ -344,20 +340,13 @@ Public Sub PrintMultiPointVar( _
 '
 ' Print the var
 '
-    ' Validation of the range
-    If Me.TestPoints.Count <> RangeToPrint.Count Then
-        ' Error message
-        MsgBox "The block to output data shall have the same dimensions of (Test point name, Q, P0, P3)."
-        Call ErrorExit
-    End If
-    
     ' Iterative block
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     
-    n = Me.TestPoints.Count
+    N = Me.TestPoints.Count
     
-    For i = 1 To n
+    For i = 1 To N
         Select Case VarIndex
         
         Case 1      ' Teste point Head - m
@@ -427,7 +416,7 @@ Public Sub Update()
         Next tpTP
         
         For Each strName In colErase
-            Me.TestPoints.Index(strName).Remove
+            Me.TestPoints.Remove (strName)
         Next strName
     End With
 End Sub
@@ -490,11 +479,7 @@ Public Sub ViscosityCorrection()
     If Me.RatedPoint.DinVisc <> 0 Then
         
         Dim dQBEP As Double      ' BEP flow determination
-        If Me.SupplierBEP = 0 Then
-            dQBEP = Me.BEP
-        Else
-            dQBEP = Me.SupplierBEP
-        End If
+        dQBEP = Me.BEP
                 
         Dim PolyH As Variant     ' BEP Head curvefit process
         PolyH = Me.PolyCurveFit( _
@@ -669,6 +654,11 @@ Public Function BEP() As Double
     Dim i As Integer
     Dim Poly As Variant
     
+    If Me.SupplierBEP <> 0 Then
+        BEP = Me.SupplierBEP
+        Exit Function
+    End If
+    
     Poly = Me.PolyCurveFit( _
         Collection:="TestPoints", _
         Propertie:="Efficiency" _
@@ -693,9 +683,160 @@ Public Function BEP() As Double
     Debug.Print "Newton loops: " & i; ""
 
     ' BEP flow
-    ' If Xi < 0 Then Xi = WorksheetFunction.Max(dQ)
+    Dim tpTP As TestPoint
+    Dim dUpper As Double
+    Dim dLower As Double
+    Dim dMaxEff As Double
+    Dim dMaxEffQ
+    
+    dUpper = 0
+    dLower = 10 ^ 6
+    dMaxEff = 0
+    
+    For Each tpTP In Me.TestPoints
+        If tpTP.Q > dUpper Then dUpper = tpTP.Q
+        If tpTP.Q < dLower Then dLower = tpTP.Q
+        If tpTP.Efficiency > dMaxEff Then
+            dMaxEff = tpTP.Efficiency
+            dMaxEffQ = tpTP.Q
+        End If
+    Next tpTP
+    
+    If Xi < dLower Or Xi > dUpper Then Xi = dMaxEffQ
+    
     Debug.Print "BEP Flow: " & Xi
-    BEP = Xi
+    BEP = Round(Xi, 3)
+End Function
+
+Public Function PolyAprox(ByVal Property As Integer) As Double
+'
+'  Polynomial aprox corrected test points head load
+'
+    Dim vPoly As Variant
+    
+    Select Case Property
+        
+        Case 1     ' Corrected head
+        
+        vPoly = Me.PolyCurveFit("TestPointsCor", "Head")
+        
+        Case 2     ' Corrected driver power
+        
+        vPoly = Me.PolyCurveFit("TestPointsCor", "DriverPower")
+        
+        Case 3     ' Corrected efficiency
+        
+        vPoly = Me.PolyCurveFit("TestPointsCor", "Efficiency")
+    
+    End Select
+    
+    PolyAprox = Me.PolyEval(Me.RatedPoint.Q, vPoly)
+    
+    PolyAprox = Round(PolyAprox, 2)
+
+End Function
+
+
+Public Function SplineAprox(ByVal Property As Integer) As Double
+'
+' Cubic Spline
+'
+    ' This counts how many points are in "input" and "output" set of data
+    Dim iPoints As Integer
+    iPoints = Me.TestPoints.Count
+    
+    ReDim xin(0 To iPoints - 1) As Variant
+    ReDim yin(0 To iPoints - 1) As Variant
+    
+    Dim c As Integer
+    Dim tpCorPoint As TestPointCor
+    
+    c = 0
+    Select Case Property
+    
+    Case 1      ' Head
+    
+        For Each tpCorPoint In Me.TestPointsCor
+            xin(c) = tpCorPoint.Q
+            yin(c) = tpCorPoint.Head
+            c = c + 1
+        Next tpCorPoint
+        
+    Case 2      ' Driver power
+    
+        For Each tpCorPoint In Me.TestPointsCor
+            xin(c) = tpCorPoint.Q
+            yin(c) = tpCorPoint.DriverPower
+            c = c + 1
+        Next tpCorPoint
+        
+    Case 3      ' Efficiency
+    
+        For Each tpCorPoint In Me.TestPointsCor
+            xin(c) = tpCorPoint.Q
+            yin(c) = tpCorPoint.Efficiency
+            c = c + 1
+        Next tpCorPoint
+        
+    End Select
+    
+    '''''''''''''''''''''''''''''''''''''''
+    ' values are populated
+    '''''''''''''''''''''''''''''''''''''''
+    Dim N As Integer 'n=input_count
+    Dim i, k As Integer 'these are loop counting integers
+    Dim p, Qn, sig, un As Variant
+    ReDim u(0 To iPoints - 1) As Variant
+    ReDim yt(0 To iPoints - 1) As Variant 'these are the 2nd deriv values
+    
+    N = iPoints - 1
+    yt(0) = 0
+    u(0) = 0
+    
+    For i = 1 To N - 1
+        sig = (xin(i) - xin(i - 1)) / (xin(i + 1) - xin(i - 1))
+        p = sig * yt(i - 1) + 2
+        yt(i) = (sig - 1) / p
+        u(i) = (yin(i + 1) - yin(i)) / (xin(i + 1) - xin(i)) - (yin(i) - yin(i - 1)) / (xin(i) - xin(i - 1))
+        u(i) = (6 * u(i) / (xin(i + 1) - xin(i - 1)) - sig * u(i - 1)) / p
+        
+        Next i
+        
+    Qn = 0
+    un = 0
+    
+    yt(N) = (un - Qn * u(N - 1)) / (Qn * yt(N - 1) + 1)
+    
+    For k = N - 1 To 1 Step -1
+        yt(k) = yt(k) * yt(k + 1) + u(k)
+    Next k
+    
+    
+    ''''''''''''''''''''
+    'now eval spline at one point
+    '''''''''''''''''''''
+    Dim klo, khi As Integer
+    Dim H, B, a, y As Variant
+    
+    ' first find correct interval
+    klo = 1
+    khi = N
+    Do
+        k = khi - klo
+        If xin(k) > Me.RatedPoint.Q Then
+        khi = k
+    Else
+        klo = k
+    End If
+        k = khi - klo
+    Loop While k > 1
+        H = xin(khi) - xin(klo)
+        a = (xin(khi) - Me.RatedPoint.Q) / H
+        B = (Me.RatedPoint.Q - xin(klo)) / H
+        y = a * yin(klo) + B * yin(khi) + ((a ^ 3 - a) * yt(klo) + (B ^ 3 - B) * yt(khi)) * (H ^ 2) / 6
+    
+    SplineAprox = Round(y, 2)
+    
 End Function
 
 Sub PlotPerformance( _
@@ -1034,110 +1175,79 @@ Sub PlotEfficiency( _
     ' Loading the values to plot
     '
     Dim iPoints As Integer
-    Dim bQ0 As Boolean
     iPoints = Me.TestPoints.Count
+    
     Dim i As Integer
     
+    Dim bQ0 As Boolean
+    
+    Dim bHasNpsh As Boolean
+    bHasNpsh = False
+    
+    '
     ' Test points efficiency load
+    '
     Dim dTestQ() As Double     'Test volume flow
     Dim dTestEfficiency() As Double     'Test efficiency
+    
     ReDim dTestEfficiency(0 To iPoints - 1)
     ReDim dTestQ(0 To iPoints - 1)
-    i = 0
-    Dim tpTP As TestPoint      ' Test points
-    For Each tpTP In Me.TestPoints
-        
-        If tpTP.Q = 0 Then bQ0 = True      ' Boolean to identify flowarate = 0 mö3/h
     
+    i = 0
+    
+    Dim tpTP As TestPoint      ' Test points
+    
+    For Each tpTP In Me.TestPoints
+        If tpTP.Q = 0 Then bQ0 = True      ' Boolean to identify flowarate = 0 mö3/h
+        If tpTP.NPSH3 <> 0 Then bHasNpsh = True        'Boolean to identify no NPSH
         dTestEfficiency(i) = tpTP.Efficiency
         dTestQ(i) = tpTP.Q
         i = i + 1
     Next tpTP
     
+    '
     ' Corrected test points Efficiency load
+    '
     Dim dTestQCor() As Double     'Corrected volume flow
     Dim dTestEfficiencyCor() As Double     'Corrected Efficiency
+    
     ReDim dTestEfficiencyCor(0 To iPoints - 1)
     ReDim dTestQCor(0 To iPoints - 1)
+    
     i = 0
+    
     Dim tpCorPoint As TestPointCor      ' Corrected test points
+    
     For Each tpCorPoint In Me.TestPointsCor
         dTestEfficiencyCor(i) = tpCorPoint.Efficiency
         dTestQCor(i) = tpCorPoint.Q
         i = i + 1
     Next tpCorPoint
     
+    '
     '  Polynomial aprox test points Efficiency load
+    '
     Dim vPolyTestEfficiency As Variant
     vPolyTestEfficiency = Me.PolyCurveFit("TestPoints", "Efficiency")
+    
     Dim dTestEfficiencyPoly() As Double     'Test Efficiency polynomial aprox
     ReDim dTestEfficiencyPoly(0 To iPoints - 1)
+    
     For i = 0 To iPoints - 1
         dTestEfficiencyPoly(i) = Me.PolyEval(dTestQ(i), vPolyTestEfficiency)
     Next i
     
-     '  Polynomial aprox corrected test points Efficiency load
+    '
+    '  Polynomial aprox corrected test points Efficiency load
+    '
     Dim vPolyTestEfficiencyCor As Variant
-     vPolyTestEfficiencyCor = Me.PolyCurveFit("TestPointsCor", "Efficiency")
+    vPolyTestEfficiencyCor = Me.PolyCurveFit("TestPointsCor", "Efficiency")
+    
     Dim dTestEfficiencyCorPoly() As Double     'Corrected Efficiency polynomial aprox
     ReDim dTestEfficiencyCorPoly(0 To iPoints - 1)
+    
     For i = 0 To iPoints - 1
         dTestEfficiencyCorPoly(i) = Me.PolyEval(dTestQCor(i), vPolyTestEfficiencyCor)
-    Next i
-    
-    ' Test points NPSH3 resize variables
-    Dim iPoints2 As Integer
-    
-    If bQ0 Then
-        iPoints2 = iPoints - 1
-    Else
-        iPoints2 = iPoints
-    End If
-    
-    ' Test points NPSH3 load
-    Dim dTestNPSH3() As Double     'Test driver power
-    Dim dTestNPSH3Q() As Double
-    ReDim dTestNPSH3(0 To iPoints2 - 1)
-    ReDim dTestNPSH3Q(0 To iPoints2 - 1)
-    i = 0
-    For Each tpTP In Me.TestPoints
-        If tpTP.Q <> 0 Then
-            dTestNPSH3Q(i) = tpTP.Q
-            dTestNPSH3(i) = tpTP.NPSH3
-            i = i + 1
-        End If
-    Next tpTP
-    
-    ' Corrected test points driver power load
-    Dim dTestNPSH3Cor() As Double     'Corrected driver power
-    Dim dTestNPSH3QCor() As Double
-    ReDim dTestNPSH3Cor(0 To iPoints2 - 1)
-    ReDim dTestNPSH3QCor(0 To iPoints2 - 1)
-    i = 0
-    For Each tpCorPoint In Me.TestPointsCor
-        If tpCorPoint.Q <> 0 Then
-            dTestNPSH3QCor(i) = tpCorPoint.Q
-            dTestNPSH3Cor(i) = tpCorPoint.NPSH3
-            i = i + 1
-        End If
-    Next tpCorPoint
-    
-    '  Polynomial aprox test points driver power load
-    Dim vPolyTestNPSH3 As Variant
-    vPolyTestNPSH3 = Me.PolyCurveFit("TestPoints", "NPSH3")
-    Dim dTestNPSH3Poly() As Double     'Test driver power polynomial aprox
-    ReDim dTestNPSH3Poly(0 To iPoints2 - 1)
-    For i = 0 To iPoints2 - 1
-        dTestNPSH3Poly(i) = Me.PolyEval(dTestNPSH3Q(i), vPolyTestNPSH3)
-    Next i
-    
-     '  Polynomial aprox corrected test points driver power load
-    Dim vPolyTestNPSH3Cor As Variant
-     vPolyTestNPSH3Cor = Me.PolyCurveFit("TestPointsCor", "NPSH3")
-    Dim dTestNPSH3CorPoly() As Double     'Corrected Efficiency polynomial aprox
-    ReDim dTestNPSH3CorPoly(0 To iPoints2 - 1)
-    For i = 0 To iPoints2 - 1
-        dTestNPSH3CorPoly(i) = Me.PolyEval(dTestNPSH3QCor(i), vPolyTestNPSH3Cor)
     Next i
     
     '
@@ -1188,12 +1298,14 @@ Sub PlotEfficiency( _
         .HasAxis(xlValue, xlPrimary) = True
         .HasAxis(xlValue, xlSecondary) = True
         
+        ' Y Axis Gridlines config
         With .Axes(xlValue, xlPrimary)
             .HasMajorGridlines = True
             .MajorGridlines.Border.LineStyle = xlDash
             .MajorGridlines.Border.Color = RGB(180, 180, 180)
         End With
         
+        ' X Axis gridlines config
         With .Axes(xlCategory, xlPrimary)
             .HasMajorGridlines = True
             .MajorGridlines.Border.LineStyle = xlDash
@@ -1202,14 +1314,15 @@ Sub PlotEfficiency( _
             .AxisTitle.Caption = "Volume Flow (m^3/h)"
         End With
         
+        ' Plot area config
+        ' Dont remove this two debug.print
+        ' i don't know why wihtout them it returns a error
         Debug.Print "width: " & .PlotArea.InsideWidth
         Debug.Print iGrWidth
+        .PlotArea.InsideHeight = 0.7 * iGrHeight
         .PlotArea.InsideWidth = 0.8 * iGrWidth
         .PlotArea.InsideLeft = 0.1 * iGrWidth
         .PlotArea.InsideTop = 0
-        
-        
-        
         
         ' Plotting test points Efficiency
         .SeriesCollection.NewSeries
@@ -1287,83 +1400,156 @@ Sub PlotEfficiency( _
             .MarkerStyle = xlMarkerStyleX
         End With
         
-        ' Plotting test points NPSH3
-        .SeriesCollection.NewSeries
-        With .SeriesCollection(7)
-            .Name = strTestData
-            .XValues = dTestNPSH3Q
-            .Values = dTestNPSH3
-            .AxisGroup = xlSecondary
-            .MarkerBackgroundColor = RGB(0, 102, 204)
-            .MarkerForegroundColor = RGB(0, 102, 204)
-            .MarkerSize = 7
-            .MarkerStyle = xlMarkerStyleCircle
-        End With
+        If bHasNpsh Then
+            '
+            ' Test points NPSH3 resize variables
+            '
+            Dim iPoints2 As Integer
             
-        ' Plotting corrected test points NPSH3
-        .SeriesCollection.NewSeries
-        With .SeriesCollection(8)
-            .Name = strCorData
-            .XValues = dTestNPSH3QCor
-            .Values = dTestNPSH3Cor
-            .AxisGroup = xlSecondary
-            .MarkerBackgroundColor = RGB(0, 133, 66)
-            .MarkerForegroundColor = RGB(0, 133, 66)
-            .MarkerSize = 7
-            .MarkerStyle = xlMarkerStyleCircle
-        End With
+            If bQ0 Then
+                iPoints2 = iPoints - 1
+            Else
+                iPoints2 = iPoints
+            End If
+            
+            ' Test points NPSH3 load
+            Dim dTestNPSH3() As Double     'Test driver power
+            Dim dTestNPSH3Q() As Double
+            ReDim dTestNPSH3(0 To iPoints2 - 1)
+            ReDim dTestNPSH3Q(0 To iPoints2 - 1)
+            i = 0
+            For Each tpTP In Me.TestPoints
+                If tpTP.Q <> 0 Then
+                    dTestNPSH3Q(i) = tpTP.Q
+                    dTestNPSH3(i) = tpTP.NPSH3
+                    i = i + 1
+                End If
+            Next tpTP
+            
+            ' Corrected test points driver power load
+            Dim dTestNPSH3Cor() As Double     'Corrected driver power
+            Dim dTestNPSH3QCor() As Double
+            ReDim dTestNPSH3Cor(0 To iPoints2 - 1)
+            ReDim dTestNPSH3QCor(0 To iPoints2 - 1)
+            i = 0
+            For Each tpCorPoint In Me.TestPointsCor
+                If tpCorPoint.Q <> 0 Then
+                    dTestNPSH3QCor(i) = tpCorPoint.Q
+                    dTestNPSH3Cor(i) = tpCorPoint.NPSH3
+                    i = i + 1
+                End If
+            Next tpCorPoint
+            
+            '  Polynomial aprox test points driver power load
+            Dim vPolyTestNPSH3 As Variant
+            vPolyTestNPSH3 = Me.PolyCurveFit("TestPoints", "NPSH3")
+            Dim dTestNPSH3Poly() As Double     'Test driver power polynomial aprox
+            ReDim dTestNPSH3Poly(0 To iPoints2 - 1)
+            For i = 0 To iPoints2 - 1
+                dTestNPSH3Poly(i) = Me.PolyEval(dTestNPSH3Q(i), vPolyTestNPSH3)
+            Next i
+            
+             '  Polynomial aprox corrected test points driver power load
+            Dim vPolyTestNPSH3Cor As Variant
+             vPolyTestNPSH3Cor = Me.PolyCurveFit("TestPointsCor", "NPSH3")
+            Dim dTestNPSH3CorPoly() As Double     'Corrected Efficiency polynomial aprox
+            ReDim dTestNPSH3CorPoly(0 To iPoints2 - 1)
+            For i = 0 To iPoints2 - 1
+                dTestNPSH3CorPoly(i) = Me.PolyEval(dTestNPSH3QCor(i), vPolyTestNPSH3Cor)
+            Next i
+            
+            
+            ' Plotting test points NPSH3
+            .SeriesCollection.NewSeries
+            With .SeriesCollection(7)
+                .Name = strTestData
+                .XValues = dTestNPSH3Q
+                .Values = dTestNPSH3
+                .AxisGroup = xlSecondary
+                .MarkerBackgroundColor = RGB(0, 102, 204)
+                .MarkerForegroundColor = RGB(0, 102, 204)
+                .MarkerSize = 7
+                .MarkerStyle = xlMarkerStyleCircle
+            End With
+                
+            ' Plotting corrected test points NPSH3
+            .SeriesCollection.NewSeries
+            With .SeriesCollection(8)
+                .Name = strCorData
+                .XValues = dTestNPSH3QCor
+                .Values = dTestNPSH3Cor
+                .AxisGroup = xlSecondary
+                .MarkerBackgroundColor = RGB(0, 133, 66)
+                .MarkerForegroundColor = RGB(0, 133, 66)
+                .MarkerSize = 7
+                .MarkerStyle = xlMarkerStyleCircle
+            End With
+            
+            ' Plotting test points NPSH3 polynomial aprox
+            .SeriesCollection.NewSeries
+            With .SeriesCollection(9)
+                .Name = strTestData
+                .XValues = dTestNPSH3Q
+                .Values = dTestNPSH3Poly
+                .AxisGroup = xlSecondary
+                .Format.Line.DashStyle = msoLineLongDash
+                .Format.Line.Weight = 0.6
+                .MarkerStyle = xlMarkerStyleNone
+                .Smooth = True
+            End With
+                
+            ' Plotting corrected test points NPSH3 polynomial aprox
+            .SeriesCollection.NewSeries
+            With .SeriesCollection(10)
+                .Name = strCorData
+                .XValues = dTestNPSH3QCor
+                .Values = dTestNPSH3CorPoly
+                .AxisGroup = xlSecondary
+                .Format.Line.Style = msoLineSingle
+                .Format.Line.Weight = 0.5
+                .MarkerStyle = xlMarkerStyleNone
+                .Smooth = True
+            End With
+               
+            ' Rated point NPSH3
+            .SeriesCollection.NewSeries
+            With .SeriesCollection(11)
+                .Name = strTestData
+                .XValues = Me.RatedPoint.Q
+                .Values = Me.PolyEval(Me.RatedPoint.Q, vPolyTestNPSH3)
+                .AxisGroup = xlSecondary
+                .MarkerForegroundColor = RGB(51, 51, 153)
+                .MarkerSize = 15
+                .MarkerStyle = xlMarkerStyleX
+            End With
+                
+            ' Rated point correct NPSH3
+            .SeriesCollection.NewSeries
+            With .SeriesCollection(12)
+                .Name = "Remove"
+                .XValues = Me.RatedPoint.Q
+                .Values = Me.PolyEval(Me.RatedPoint.Q, vPolyTestNPSH3Cor)
+                .AxisGroup = xlSecondary
+                .MarkerForegroundColor = RGB(255, 0, 0)
+                .MarkerSize = 15
+                .MarkerStyle = xlMarkerStyleX
+            End With
+            
+            ' Chart scales settings
+            With .Axes(xlValue, xlSecondary)
+                .HasTitle = True
+                .AxisTitle.Text = "NPSH3 (m)"
+                .MinimumScale = Round(WorksheetFunction.Min(dTestNPSH3Cor) * 0.7 / 10, 0) * 10
+                .MaximumScale = Round(WorksheetFunction.Max(dTestNPSH3) * 2.5 / 10, 0) * 10
+            End With
+            
+            ' Removing some legends entries
+            For i = .Legend.LegendEntries.Count To .Legend.LegendEntries.Count - 5 Step -1
+                    .Legend.LegendEntries(i).Delete
+            Next i
+        End If
         
-        ' Plotting test points NPSH3 polynomial aprox
-        .SeriesCollection.NewSeries
-        With .SeriesCollection(9)
-            .Name = strTestData
-            .XValues = dTestNPSH3Q
-            .Values = dTestNPSH3Poly
-            .AxisGroup = xlSecondary
-            .Format.Line.DashStyle = msoLineLongDash
-            .Format.Line.Weight = 0.6
-            .MarkerStyle = xlMarkerStyleNone
-            .Smooth = True
-        End With
-            
-        ' Plotting corrected test points NPSH3 polynomial aprox
-        .SeriesCollection.NewSeries
-        With .SeriesCollection(10)
-            .Name = strCorData
-            .XValues = dTestNPSH3QCor
-            .Values = dTestNPSH3CorPoly
-            .AxisGroup = xlSecondary
-            .Format.Line.Style = msoLineSingle
-            .Format.Line.Weight = 0.5
-            .MarkerStyle = xlMarkerStyleNone
-            .Smooth = True
-        End With
-           
-        ' Rated point NPSH3
-        .SeriesCollection.NewSeries
-        With .SeriesCollection(11)
-            .Name = strTestData
-            .XValues = Me.RatedPoint.Q
-            .Values = Me.PolyEval(Me.RatedPoint.Q, vPolyTestNPSH3)
-            .AxisGroup = xlSecondary
-            .MarkerForegroundColor = RGB(51, 51, 153)
-            .MarkerSize = 15
-            .MarkerStyle = xlMarkerStyleX
-        End With
-            
-        ' Rated point correct NPSH3
-        .SeriesCollection.NewSeries
-        With .SeriesCollection(12)
-            .Name = "Remove"
-            .XValues = Me.RatedPoint.Q
-            .Values = Me.PolyEval(Me.RatedPoint.Q, vPolyTestNPSH3Cor)
-            .AxisGroup = xlSecondary
-            .MarkerForegroundColor = RGB(255, 0, 0)
-            .MarkerSize = 15
-            .MarkerStyle = xlMarkerStyleX
-        End With
-        
-        ' Ajustando as escalas
+        ' Chart scales settings
         With .Axes(xlValue, xlPrimary)
             .HasTitle = True
             .AxisTitle.Text = "Efficiency (%)"
@@ -1371,17 +1557,7 @@ Sub PlotEfficiency( _
             .MaximumScale = Round(WorksheetFunction.Max(dTestEfficiency) * 1.1 / 10, 0) * 10
         End With
         
-        With .Axes(xlValue, xlSecondary)
-            .HasTitle = True
-            .AxisTitle.Text = "NPSH3 (m)"
-            .MinimumScale = Round(WorksheetFunction.Min(dTestNPSH3Cor) * 0.7 / 10, 0) * 10
-            .MaximumScale = Round(WorksheetFunction.Max(dTestNPSH3) * 2.5 / 10, 0) * 10
-        End With
-        
-        ' Removing some legends entries
-        For i = .Legend.LegendEntries.Count To .Legend.LegendEntries.Count - 5 Step -1
-                .Legend.LegendEntries(i).Delete
-        Next i
+
 
            
     End With

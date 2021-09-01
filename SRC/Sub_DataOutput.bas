@@ -5,16 +5,19 @@ Option Explicit
 '
 Sub OutputData( _
     PumpObject As Pump, _
-    oDS As Worksheet, _
     oTD As Worksheet, _
-    strDS As String, _
     strTD As String _
     )
     '
     ' Test raw data output
     '
-    oTD.Range("'" & strTD & "'!PumpD0") = PumpObject.D0
-    oTD.Range("'" & strTD & "'!PumpD3") = PumpObject.D3
+    oTD.Range("'" & strTD & "'!PumpD0m") = PumpObject.D0 & " m"
+    oTD.Range("'" & strTD & "'!PumpD3m") = PumpObject.D3 & " m"
+    If oTD.Range("'" & strTD & "'!RatedPointDinVisc") <> 0 Then
+        oTD.Range("'" & strTD & "'!AproxBEP") = PumpObject.BEP
+    Else
+        oTD.Range("'" & strTD & "'!AproxBEP") = "-"
+    End If
     
     ' Teste points head
     PumpObject.PrintMultiPointVar _
@@ -28,6 +31,18 @@ Sub OutputData( _
     '
     ' Test correct data
     '
+    ' Teste rated head
+    oTD.Range("'" & strTD & "'!RatedPointHeadPoly") = PumpObject.PolyAprox(1)
+    oTD.Range("'" & strTD & "'!RatedPointHeadSpline") = PumpObject.SplineAprox(1)
+    
+     ' Teste rated driver power
+    oTD.Range("'" & strTD & "'!RatedPointDriverPowerPoly") = PumpObject.PolyAprox(2)
+    oTD.Range("'" & strTD & "'!RatedPointDriverPowerSpline") = PumpObject.SplineAprox(2)
+    
+    ' Teste rated driver power
+    oTD.Range("'" & strTD & "'!RatedPointEfficiencyPoly") = PumpObject.PolyAprox(3)
+    oTD.Range("'" & strTD & "'!RatedPointEfficiencySpline") = PumpObject.SplineAprox(3)
+    
     ' Test points flow
     PumpObject.PrintMultiPointVar _
         VarIndex:=3, _

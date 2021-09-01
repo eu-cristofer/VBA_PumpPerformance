@@ -6,7 +6,7 @@ Option Explicit
 Sub NameRangesCreator()
     
     Const strSheet As String = "NamedRangesList"
-    Dim n As Integer
+    Dim N As Integer
     Dim i As Integer
     Dim ranCell As Range
     Dim oName As Object
@@ -26,9 +26,9 @@ Sub NameRangesCreator()
     
     Set ranCell = oWB.Sheets(strSheet).Range("A1")
     
-    n = LastRow(ranCell)
+    N = LastRow(ranCell)
      
-    For i = 1 To n
+    For i = 1 To N
         oWB.Names.Add _
             Name:=oWB.Sheets(strSheet).Cells(i, 2).Value, _
             RefersTo:=oWB.Sheets(strSheet).Cells(i, 1).Value

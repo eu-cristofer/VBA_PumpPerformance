@@ -5,9 +5,7 @@ Option Explicit
 '
 Sub InputData( _
     PumpObject As Pump, _
-    oDS As Worksheet, _
     oTD As Worksheet, _
-    strDS As String, _
     strTD As String _
     )
     '
@@ -16,20 +14,18 @@ Sub InputData( _
     ' Parameters may be supplied at the creation of the Rated Point
     ' Required parameters: Head; and Flow.
     PumpObject.AddRatedPoint _
-        Head:=oDS.Range("'" & strDS & "'!RatedPointHead"), _
-        Flow:=oDS.Range("'" & strDS & "'!RatedPointQ"), _
-        InletPressure:=oDS.Range("'" & strDS & "'!RatedPointP0"), _
-        OutletPressure:=oDS.Range("'" & strDS & "'!RatedPointP3"), _
-        NSpeed:=oDS.Range("'" & strDS & "'!RatedPointN"), _
-        DriverPower:=oDS.Range("'" & strDS & "'!RatedPointDriverPower"), _
-        Efficiency:=oDS.Range("'" & strDS & "'!RatedPointEfficiency")
+        Head:=oTD.Range("'" & strTD & "'!RatedPointHead"), _
+        Flow:=oTD.Range("'" & strTD & "'!RatedPointQ"), _
+        NSpeed:=oTD.Range("'" & strTD & "'!RatedPointN"), _
+        DriverPower:=oTD.Range("'" & strTD & "'!RatedPointDriverPower"), _
+        Efficiency:=oTD.Range("'" & strTD & "'!RatedPointEfficiency")
     ' Optional parameters can be added later
-    PumpObject.RatedPoint.DinVisc = oDS.Range("'" & strDS & "'!RatedPointDinVisc")
-    PumpObject.RatedPoint.Density = oDS.Range("'" & strDS & "'!RatedPointDensity")
+    PumpObject.RatedPoint.DinVisc = oTD.Range("'" & strTD & "'!RatedPointDinVisc")
+    PumpObject.RatedPoint.Density = oTD.Range("'" & strTD & "'!RatedPointDensity")
     '
     ' Add supplier BEP, if supplied
     '
-    PumpObject.SupplierBEP = 0
+    PumpObject.SupplierBEP = oTD.Range("'" & strTD & "'!SupplierBEP")
     '
     ' Add test points
     '

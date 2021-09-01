@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="256"
+   viewBox="0 0 67.733333 67.733333"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="NewPump.svg"
+   inkscape:export-filename="/Users/cristofer/Documents/07 - Software/00 - Projetos/VBA_PumpPerformance/Imagens/NewPump.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="1.5479522"
+     inkscape:cx="80.751847"
+     inkscape:cy="145.99934"
+     inkscape:window-width="1475"
+     inkscape:window-height="878"
+     inkscape:window-x="106"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     width="256px" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect452811"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect450975"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath109">
+      <path
+         d="M 247.434,528.666 H 364.565 V 637.458 H 247.434 Z"
+         id="path107" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath131">
+      <path
+         d="M 254.214,377.083 H 357.786 V 479.875 H 254.214 Z"
+         id="path129" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath167">
+      <path
+         d="M 247.464,118.999 H 364.536 V 232.291 H 247.464 Z"
+         id="path165" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath191">
+      <path
+         d="M -1,-2 H 80 V 20 H -1 Z"
+         id="path189" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath207">
+      <path
+         d="M -1,-2 H 80 V 20 H -1 Z"
+         id="path205" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath223">
+      <path
+         d="M -1,-2 H 80 V 20 H -1 Z"
+         id="path221" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath235">
+      <path
+         d="M -1,-2 H 80 V 20 H -1 Z"
+         id="path233" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath251">
+      <path
+         d="M -1,-2 H 80 V 20 H -1 Z"
+         id="path249" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath267">
+      <path
+         d="M -1,-2 H 80 V 20 H -1 Z"
+         id="path265" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath283">
+      <path
+         d="M -1,-2 H 90 V 20 H -1 Z"
+         id="path281" />
+    </clipPath>
+    <marker
+       id="DistanceX"
+       orient="auto"
+       refX="0"
+       refY="0"
+       style="overflow:visible">
+      <path
+         d="M 3,-3 -3,3 M 0,-5 V 5"
+         style="stroke:#000000;stroke-width:0.5"
+         id="path453087" />
+    </marker>
+    <pattern
+       id="Hatch"
+       patternUnits="userSpaceOnUse"
+       width="8"
+       height="8"
+       x="0"
+       y="0">
+      <path
+         d="M8 4 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path453090" />
+      <path
+         d="M6 2 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path453092" />
+      <path
+         d="M4 0 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path453094" />
+    </pattern>
+    <symbol
+       id="*Model_Space" />
+    <symbol
+       id="*Paper_Space" />
+    <symbol
+       id="*Paper_Space0" />
+    <symbol
+       id="*U1" />
+    <symbol
+       id="*U3" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.50000007;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 26.438608,7.0891192 h 9.642829"
+       id="path453112" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.50000007;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       d="M 50.520756,36.642433 53.577394,7.0891192"
+       id="path453114" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.50000007;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       d="M 38.907068,34.415657 36.081437,7.0891192"
+       id="path453116" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2.50000007;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 53.577394,7.0891192 h 9.642394"
+       id="path453118" />
+    <path
+       d="M 36.744922,34.764879 A 11.776173,12.247708 0 0 0 19.994721,36.468306"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453120" />
+    <path
+       d="m 24.003322,26.134125 a 11.776173,12.247708 0 0 0 -6.9567,15.93869"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453122" />
+    <path
+       d="m 10.445837,33.295207 a 11.776173,12.247708 0 0 0 9.793499,14.235149"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453124" />
+    <path
+       d="M 9.6299543,49.08693 A 11.776173,12.247708 0 0 0 26.380153,47.383503"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453126" />
+    <path
+       d="m 22.371557,57.71768 a 11.776173,12.247708 0 0 0 6.9567,-15.938686"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453128" />
+    <path
+       d="M 35.92904,50.556602 A 11.776173,12.247708 0 0 0 26.135543,36.321452"
+       style="fill:none;stroke:#000000;stroke-width:2.5;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453130" />
+    <path
+       d="m 38.907018,34.412232 c -1.659952,-3.18212 -3.319902,-6.364354 -5.900668,-8.446789 -2.580766,-2.08232 -6.082347,-3.06507 -9.547479,-3.226312 -3.591977,-0.16718 -7.144787,0.548243 -10.157279,2.353416 -3.197326,1.915941 -5.7859975,5.059349 -7.2642235,8.652908 -1.5637211,3.801278 -1.884838,8.106263 -0.9866768,12.107836 0.9472824,4.220481 3.2508659,8.103632 6.4214993,10.93826 3.335107,2.981595 7.629556,4.803214 11.98668,5.129585 4.572058,0.342541 9.213129,-0.961175 13.206279,-3.383795 4.304164,-2.61126 7.855555,-6.522618 10.135286,-11.016823 1.726132,-3.40297 2.343475,-4.375404 3.72031,-10.877285"
+       style="fill:none;stroke:#000000;stroke-width:2.50000007;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path453132"
+       sodipodi:nodetypes="ccsscsccscc" />
+  </g>
+</svg>

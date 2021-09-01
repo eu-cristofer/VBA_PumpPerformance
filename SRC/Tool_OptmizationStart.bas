@@ -8,6 +8,8 @@ Sub OptimizationStart()
 
     Application.ScreenUpdating = False
     
+    ActiveSheet.Calculate
+    
     Application.Calculation = xlCalculationManual
     
     Debug.Print "OptimizationStart Module:" & Chr(10) & "     Read!"

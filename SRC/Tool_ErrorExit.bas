@@ -6,7 +6,7 @@ Option Explicit
 '
 Sub ErrorExit()
 
-    Call OptmizationEnd
+    Call OptimizationEnd
     
     End
     
