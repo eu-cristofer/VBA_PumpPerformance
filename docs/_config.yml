@@ -1,7 +1,7 @@
 theme: jekyll-theme-minimal
 
 title: [VBA Pump Performance]
-logo: ../images/NewPump.png
+logo: https://github.com/eu-cristofer/VBA_PumpPerformance/images/NewPump.png
 show_downlods: True
 author: [Cristofer Costa]
 description: [Webpage devoted to VBA Pump Performance Add-in..]
