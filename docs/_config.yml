@@ -3,4 +3,5 @@ theme: jekyll-theme-minimal
 title: [VBA Pump Performance]
 related_image: ["../images/NewPump.png"]
 author: [Cristofer Costa]
+show_downloads: True
 description: [Webpage devoted to VBA Pump Performance Add-in.]
