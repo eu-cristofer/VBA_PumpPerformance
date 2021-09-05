@@ -1,4 +1,4 @@
-## Welcome to VBA Pump Performance
+## Welcome
 
 
 VBA Pump Performance is a set of tools to help engineers and technicians to asses the condition of API 610 centrifugal pumps during its Performance and Mechanical Running Test trials.
