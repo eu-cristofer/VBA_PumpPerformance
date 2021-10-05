@@ -25,7 +25,7 @@ You can download the pre-release at:
 4. The Explorer Window should default to the Microsoft add-in folder location.
 5. Navigate and select the file `VBA-Pump-Performance.xlam`, then click OK.
 
-## Sample File
+### Sample File
 
 You can try the functionalities with the file `SampleData.xlsx`.
 
