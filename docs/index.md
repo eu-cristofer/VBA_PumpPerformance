@@ -14,7 +14,7 @@ VBA Pump Performance is a set of tools to help engineers and technicians to asse
 
 ## Download
 
-You can download Add-in here: [VBA-Pump-Performance.xlam](https://github.com/eu-cristofer/VBA_PumpPerformance/releases/download/v0.0a2/VBA-Pump-Performance.xlam)
+You can download the Add-in here: [VBA-Pump-Performance.xlam](https://github.com/eu-cristofer/VBA_PumpPerformance/releases/download/v0.0a2/VBA-Pump-Performance.xlam)
 
 You can check the latest realease at:
 [https://github.com/eu-cristofer/VBA_PumpPerformance/releases](https://github.com/eu-cristofer/VBA_PumpPerformance/releases)
