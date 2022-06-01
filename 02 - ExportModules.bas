@@ -8,7 +8,7 @@ Option Explicit
 ' or set the constant strPath with a valid address
 '
 Public Sub ExportModules()
-    Const strWB As String = "Book1.xlsm"
+    Const strWB As String = "vba-pump-performance.xlam"
     Const strPath As String = "/Users/***LABEL***/Desktop/ExportedFiles"
     Dim strFile As String
     Dim i As Integer

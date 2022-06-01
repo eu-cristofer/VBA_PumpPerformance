@@ -12,7 +12,7 @@ Sub NewPump(control As IRibbonControl)
     
     ' Create the Add-in workbook object
     Dim oAddWB As Object
-    Set oAddWB = Application.Workbooks("VBA Pump Performance.xlam")
+    Set oAddWB = Application.Workbooks("vba-pump-performance.xlam")
     
     'Copy the Getting Started and Input data sheet to the active workbook
     With ActiveWorkbook

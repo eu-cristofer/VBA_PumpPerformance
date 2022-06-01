@@ -20,7 +20,7 @@ Sub ResetMain(ByRef wsWS As Worksheet)
     strSheet = "ResetFields"
     
     ' Add-in workbook
-    Set wbWB = Application.Workbooks("VBA Pump Performance.xlam")
+    Set wbWB = Application.Workbooks("vba-pump-performance.xlam")
     Set ranCel = wbWB.Worksheets(strSheet).Range("A1")
     N = LastRow(ranCel)
     

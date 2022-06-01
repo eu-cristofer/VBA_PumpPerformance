@@ -1,6 +1,6 @@
 # VBA Pump Performance
 
-VBA Pump Performance is a set of tools to help engineers and technicians to asses the condition of an API 610 pump during its Performance and Mechanical Running Test trials. 
+VBA Pump Performance is a set of tools to help engineers and technicians to asses the condition of API 610 pumps during its Performance and Mechanical Running Test trials.
 
 # Resources
 * Performance computation
@@ -35,3 +35,10 @@ The computation of viscosity correction is accordingly the ANSI/HI 9.6 Rotodynam
 ## Special notes
 
 The author of the code does not make any warranty or representation, either express or implied, with respect to the accuracy, completeness, or usefulness of the results contained herein, or assume any liability or responsibility for any use, or the results of such use, of any information or process disclosed in this software.
+
+# Guidelines to build the solution as an Add-in
+
+1. Open the file `00 - BaseSpreadSheet.xlsx` in Excel Application.
+2. Through the developer tab, access Visual Basic and import the script `01 - ImportModules.bas`.
+3. Inside the imported module, adjust the variable `strAddress` with the path to the source (`src`) folder, i.e. `"C:\Users\john\GitHub\vba-pump-performance/src/"`.
+4. Run the sub `01 - ImportModules`.
