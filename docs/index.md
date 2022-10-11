@@ -29,7 +29,7 @@ You can check the latest realease at:
 
 ### Sample File
 
-You can try the functionalities with the file `SampleData.xlsx`.
+You can try the functionalities with the file [`SampleData.xlsx`](https://github.com/eu-cristofer/vba-pump-performance/blob/main/SampleData.xlsx).
 
 ## Technical specifications
 
