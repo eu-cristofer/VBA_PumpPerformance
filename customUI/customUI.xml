@@ -1,0 +1,17 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui">
+	<ribbon>
+		<tabs>
+			<tab id="PumpPerformance" label="Pump Performance" insertAfterMso="TabView">
+				<group id="PerformanceTools" label="Performance Tools">
+					<button id="customButton1" label="New Pump" size="large" onAction="NewPump" image="NewPump" />
+					<button id="customButton2" label="Clone Pump" size="large" onAction="ClonePump" image="ClonePump" />
+					<button id="customButton3" label="Run Performance" size="large" onAction="RunPerformance" image="Run" />
+					<button id="customButton4" label="Reset Calc Fields" size="large" onAction="ResetCalcFields" image="ResetCalcFields" />
+				</group>
+				<group id="Report" label="Report">
+					<button id="customButton5" label="Report" size="large" onAction="Report" imageMso="ExportWord" />
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>
