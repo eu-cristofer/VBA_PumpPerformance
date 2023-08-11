@@ -6,7 +6,7 @@ Sub ImportModules()
 ' named 00_module_list.txt from folder \src
 '
 ' VBA Pump Performance
-' https://github.com/eu-cristofer/vba-pump-performance
+' https://eu-cristofer.github.io/vba-pump-performance/
 
     ' Open the folder selection dialog
     Dim selectedFolder As FileDialog
